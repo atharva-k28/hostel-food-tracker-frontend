@@ -23,7 +23,7 @@ export default function Home() {
             View Dashboard
           </button>
         </Link>
-        <Link href="/Details">
+        <Link href="/Details/form">
           <button className="w-56 px-6 py-3 bg-emerald-600 text-white text-lg font-medium rounded-lg shadow-md hover:bg-emerald-700 transition">
             View Student Details
           </button>
