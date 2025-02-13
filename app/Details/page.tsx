@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { CheckCircle, XCircle } from "lucide-react";
 
-export default function DetailsPage() {
+function DetailsPageContent() {
   const searchParams = useSearchParams();
-  const date = searchParams.get("date") || ""; 
+  const date = searchParams.get("date") || "";
   const [messData, setMessData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   const fetchData = async () => {
-    if (!date) return;  
+    if (!date) return;
 
     try {
       const response = await fetch(`/api/students?date=${date}`);
@@ -26,7 +26,7 @@ export default function DetailsPage() {
 
   useEffect(() => {
     fetchData();
-  }, [date]); 
+  }, [date]);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-[#f5f5f4] p-4 sm:p-8">
@@ -35,7 +35,7 @@ export default function DetailsPage() {
           Hostel Mess Tracker
         </h1>
         <h2 className="text-sm sm:text-lg text-gray-600 text-center mb-4 sm:mb-6">
-          Meal Records for <span className="font-semibold text-green-800">{date}</span>
+          Meal Records for <span className="font-semibold text-green-600">{date}</span>
         </h2>
 
         {loading ? (
@@ -84,5 +84,13 @@ export default function DetailsPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function DetailsPage() {
+  return (
+    <Suspense fallback={<div className="text-center py-10">Loading...</div>}>
+      <DetailsPageContent />
+    </Suspense>
   );
 }

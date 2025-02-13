@@ -56,7 +56,7 @@ export async function GET(req: Request) {
       ])
       .toArray();
 
-    //Get number of valid days with data
+    //Get number of valid days with data      / / / 
     const daysWithData = studentAggregation.length;
 
     //Total expected students = total students per day × valid days**
