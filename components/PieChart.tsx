@@ -62,11 +62,16 @@ export function PieChartComponent({ meal, range }: PieChartComponentProps) {
   if (error) return <p className="text-red-500">Error: {error}</p>;
 
   return (
-    <Card className="flex flex-col">
-      <CardHeader className="items-center pb-0">
-        <CardTitle>Meal Distribution - {meal}</CardTitle>
-        <CardDescription>Showing data for: {range}</CardDescription>
-      </CardHeader>
+    <Card className="flex flex-col shadow-md">
+      <CardHeader className="flex flex-col items-center text-center pb-2 space-y-1">
+  <CardTitle className="text-lg sm:text-xl font-semibold text-gray-90sl0">
+    Meal Distribution - <span className="text-emerald-600">{`${meal[0].toUpperCase()}${meal.slice(1)}`}</span>
+  </CardTitle>
+  <CardDescription className="text-sm sm:text-base text-gray-600">
+    Showing data for: <span className="font-medium text-gray-800">{`${range[0].toUpperCase()}${range.slice(1)}`}</span>
+  </CardDescription>
+</CardHeader>
+
       <CardContent className="flex-1 pb-0">
       <ChartContainer
   config={{ count: { label: "Count" } }}

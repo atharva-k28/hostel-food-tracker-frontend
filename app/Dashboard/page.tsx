@@ -65,7 +65,7 @@ export default function DashboardPage() {
               name="range"
               value={pieData.range}
               onChange={handleChange}
-              className="border border-emerald-500 px-2 py-1 md:px-3 md:py-2 rounded-md focus:ring-emerald-500 focus:border-emerald-600 text-sm"
+              className="border border-emerald-500 px-2 py-1 md:px-3 md:py-2 rounded-md focus:ring-emerald-500 focus:border-emerald-600 text-sm "
             >
               <option value="today">Today</option>
               <option value="yesterday">Yesterday</option>

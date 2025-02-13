@@ -8,7 +8,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -18,7 +17,6 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-
 
 type MealData = {
   date: string;
@@ -30,11 +28,12 @@ type MealData = {
 
 export default function BarGraphComponent() {
   const [chartData, setChartData] = useState<MealData[]>([]);
+  const [chartWidth, setChartWidth] = useState(600); // Default width
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch("/api/barGraphData"); // Replace with your actual API route
+        const response = await fetch("/api/barGraphData");
         const data: MealData[] = await response.json();
         setChartData(data);
       } catch (error) {
@@ -44,7 +43,18 @@ export default function BarGraphComponent() {
     fetchData();
   }, []);
 
-  // Chart configuration
+  useEffect(() => {
+    const handleResize = () => {
+      const newWidth = window.innerWidth < 768 ? window.innerWidth - 40 : 600; // Adjust for smaller screens
+      setChartWidth(newWidth);
+    };
+
+    handleResize(); // Set initial width
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const chartConfig: ChartConfig = {
     breakfast: { label: "Breakfast", color: "hsl(var(--chart-1))" },
     lunch: { label: "Lunch", color: "hsl(var(--chart-2))" },
@@ -52,20 +62,27 @@ export default function BarGraphComponent() {
   };
 
   return (
-    <Card className="bg-white shadow-md rounded-lg p-4 border border-gray-200">
+    <Card className="bg-white shadow-md rounded-lg p-4 border border-gray-200 w-full">
       <CardHeader className="mb-2">
-        <CardTitle className="text-lg font-semibold text-emerald-600">Meal Statistics</CardTitle>
+        <CardTitle className="text-lg font-semibold text-emerald-600">
+          Meal Statistics
+        </CardTitle>
         <CardDescription className="text-sm text-gray-700">
           Meal consumption trends for the last 7 days
         </CardDescription>
       </CardHeader>
 
-      <CardContent className="overflow-hidden">
+      <CardContent className="overflow-x-auto">
         <ChartContainer config={chartConfig}>
-          <BarChart data={chartData} width={600} height={280}>
+          <BarChart data={chartData} width={chartWidth} height={280}>
             <CartesianGrid vertical={false} strokeDasharray="3 3" />
             <XAxis
               dataKey="day"
+              tickFormatter={(day) => {
+                if (window.innerWidth < 505) return day.slice(0, 1);
+                if (window.innerWidth < 1180) return day.slice(0, 3);
+                return day;
+              }}
               tickLine={false}
               tickMargin={8}
               axisLine={false}
@@ -79,15 +96,6 @@ export default function BarGraphComponent() {
           </BarChart>
         </ChartContainer>
       </CardContent>
-
-      {/* <CardFooter className="flex flex-col items-start gap-2 text-sm text-gray-600">
-        <div className="flex gap-2 font-medium leading-none text-emerald-700">
-          Trending up by 5.2% this week <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="leading-none text-muted-foreground">
-          Displaying meals per day over the last 7 days.
-        </div>
-      </CardFooter> */}
     </Card>
   );
 }

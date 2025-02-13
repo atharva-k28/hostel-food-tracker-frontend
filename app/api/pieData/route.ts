@@ -37,7 +37,7 @@ export async function GET(req: Request) {
     const db = client.db("hosteldata");
     const collection = db.collection("students");
 
-    // 1️⃣ **Get SUM of all meal counts in the past X days**
+    //Get SUM of all meal counts in the past X days**
     const mealAggregation = await collection
       .aggregate([
         { $match: { date: { $gte: startDate } } }, // Filter by date range
@@ -45,10 +45,10 @@ export async function GET(req: Request) {
       ])
       .toArray();
 
-    // Sum up the meal count across all valid days
+    //Sum up the meal count across all valid days
     const totalMealCount = mealAggregation.reduce((sum, day) => sum + day.mealCount, 0);
 
-    // 2️⃣ **Count unique students per day**
+    //Count unique students per day**
     const studentAggregation = await collection
       .aggregate([
         { $match: { date: { $gte: startDate } } },
@@ -56,10 +56,10 @@ export async function GET(req: Request) {
       ])
       .toArray();
 
-    // Get number of valid days with data
+    //Get number of valid days with data
     const daysWithData = studentAggregation.length;
 
-    // 3️⃣ **Total expected students = total students per day × valid days**
+    //Total expected students = total students per day × valid days**
     const uniqueStudents = await collection.distinct("prn");
     const totalStudentsPerDay = uniqueStudents.length; // Assuming total students per day is constant
 
