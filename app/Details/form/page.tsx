@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 export default function Form() {
   const today: string = new Date().toISOString().split("T")[0];
@@ -10,6 +11,16 @@ export default function Form() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-8">
       <div className="max-w-md w-full bg-white p-6 rounded-xl shadow-md border border-gray-200">
+        
+        
+        <Link
+          href="/" 
+          className="flex items-center gap-2 text-emerald-700 hover:text-emerald-800 transition mb-4"
+        >
+          <ArrowLeft size={20} />
+          <span className="text-sm font-medium">Back</span>
+        </Link>
+
         <h1 className="text-2xl font-bold text-gray-800 mb-4 text-center">Select Date</h1>
         <div className="flex flex-col gap-4">
           <input

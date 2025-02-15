@@ -1,11 +1,13 @@
 "use client";
 
 import React, { useEffect, useState, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
-import { CheckCircle, XCircle } from "lucide-react";
+import { useSearchParams, useRouter } from "next/navigation";
+import { CheckCircle, XCircle, ArrowLeft } from "lucide-react";
+import Link from "next/link";
 
 function DetailsPageContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const date = searchParams.get("date") || "";
   const [messData, setMessData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -31,6 +33,15 @@ function DetailsPageContent() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-[#f5f5f4] p-4 sm:p-8">
       <div className="w-full max-w-4xl bg-white p-6 sm:p-8 rounded-xl shadow-xl border border-gray-200">
+        
+        <Link href='/Details/form'>
+        <button
+          className="flex items-center gap-2 text-emerald-700 hover:text-emerald-800 transition mb-4 sm:mb-6"
+        >
+          <ArrowLeft size={20} />
+          <span className="text-sm sm:text-base font-medium">Back</span>
+        </button></Link>
+
         <h1 className="text-2xl sm:text-4xl font-bold text-gray-900 tracking-wide text-center mb-3 sm:mb-4">
           Hostel Mess Tracker
         </h1>

@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import PieChartComponent from "@/components/PieChart";
 import BarGraphComponent from "@/components/BarChart";
 
@@ -10,7 +12,6 @@ export default function DashboardPage() {
     isWideScreen: true,
   });
 
- 
   useEffect(() => {
     const handleResize = () => {
       setLayoutConfig({ isWideScreen: window.innerWidth >= 1024 });
@@ -29,11 +30,16 @@ export default function DashboardPage() {
   return (
     <div className="h-screen bg-[#f5f5f4] flex flex-col items-center justify-start px-6 py-4">
       
+      
+      <Link href="/" className="flex items-center gap-2 text-emerald-700 hover:text-emerald-800 transition mb-3 self-start">
+        <ArrowLeft size={20} />
+        <span>Back</span>
+      </Link>
+
       <h1 className="text-2xl md:text-3xl font-semibold text-gray-800 mb-4 text-center">
-        Dashboard
+        Analytics Overview
       </h1>
 
-     
       <div
         className={`w-full max-w-6xl grid gap-4 h-[90vh] ${
           layoutConfig.isWideScreen ? "grid-cols-12" : "grid-cols-1"
@@ -79,7 +85,6 @@ export default function DashboardPage() {
           </div>
         </div>
 
-       
         <div
           className={`bg-white shadow-md rounded-lg p-4 border border-gray-200 flex flex-col justify-start ${
             layoutConfig.isWideScreen ? "col-span-8" : "col-span-1"
