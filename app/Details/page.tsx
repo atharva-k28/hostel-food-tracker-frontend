@@ -35,7 +35,7 @@ function DetailsPageContent() {
           Hostel Mess Tracker
         </h1>
         <h2 className="text-sm sm:text-lg text-gray-600 text-center mb-4 sm:mb-6">
-          Meal Records for <span className="font-semibold text-green-600">{date}</span>
+          Meal Records for <span className="font-semibold text-green-700">{date}</span>
         </h2>
 
         {loading ? (

@@ -64,7 +64,7 @@ export default function BarGraphComponent() {
   return (
     <Card className="bg-white shadow-md rounded-lg p-4 border border-gray-200 w-full">
       <CardHeader className="mb-2">
-        <CardTitle className="text-lg font-semibold text-emerald-600">
+        <CardTitle className="text-lg sm:text-xl font-semibold text-gray-900">
           Meal Statistics
         </CardTitle>
         <CardDescription className="text-sm text-gray-700">
@@ -73,28 +73,33 @@ export default function BarGraphComponent() {
       </CardHeader>
 
       <CardContent className="overflow-x-auto">
-        <ChartContainer config={chartConfig}>
-          <BarChart data={chartData} width={chartWidth} height={280}>
-            <CartesianGrid vertical={false} strokeDasharray="3 3" />
-            <XAxis
-              dataKey="day"
-              tickFormatter={(day) => {
-                if (window.innerWidth < 505) return day.slice(0, 1);
-                if (window.innerWidth < 1180) return day.slice(0, 3);
-                return day;
-              }}
-              tickLine={false}
-              tickMargin={8}
-              axisLine={false}
-              className="text-xs text-gray-600"
-            />
-            <YAxis className="text-xs text-gray-600" />
-            <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="dot" />} />
-            <Bar dataKey="breakfast" fill="var(--color-breakfast)" radius={2} />
-            <Bar dataKey="lunch" fill="var(--color-lunch)" radius={2} />
-            <Bar dataKey="dinner" fill="var(--color-dinner)" radius={2} />
-          </BarChart>
-        </ChartContainer>
+        <div className="min-w-[500px] sm:min-w-[600px]">
+          <ChartContainer config={chartConfig}>
+            <BarChart data={chartData} width={chartWidth} height={280}>
+              <CartesianGrid vertical={false} strokeDasharray="3 3" />
+              <XAxis
+                dataKey="day"
+                tickFormatter={(day) => {
+                  if (window.innerWidth < 505) return day.slice(0, 1);
+                  if (window.innerWidth < 1180) return day.slice(0, 3);
+                  return day;
+                }}
+                tickLine={false}
+                tickMargin={8}
+                axisLine={false}
+                className="text-xs text-gray-600"
+              />
+              <YAxis className="text-xs text-gray-600" />
+              <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="dot" />} />
+              {/* <Bar dataKey="breakfast" fill="#F97A7A" radius={2} />
+              <Bar dataKey="lunch" fill="#059669" radius={2} />
+              <Bar dataKey="dinner" fill="var(--color-dinner)" radius={2} /> */}
+              <Bar dataKey="breakfast" fill="var(--color-breakfast)" radius={2} />
+              <Bar dataKey="lunch" fill="var(--color-lunch)" radius={2} />
+              <Bar dataKey="dinner" fill="var(--color-dinner)" radius={2} />
+            </BarChart>
+          </ChartContainer>
+        </div>
       </CardContent>
     </Card>
   );
