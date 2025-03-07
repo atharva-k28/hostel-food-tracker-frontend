@@ -91,9 +91,6 @@ export default function BarGraphComponent() {
               />
               <YAxis className="text-xs text-gray-600" />
               <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="dot" />} />
-              {/* <Bar dataKey="breakfast" fill="#F97A7A" radius={2} />
-              <Bar dataKey="lunch" fill="#059669" radius={2} />
-              <Bar dataKey="dinner" fill="var(--color-dinner)" radius={2} /> */}
               <Bar dataKey="breakfast" fill="var(--color-breakfast)" radius={2} />
               <Bar dataKey="lunch" fill="var(--color-lunch)" radius={2} />
               <Bar dataKey="dinner" fill="var(--color-dinner)" radius={2} />

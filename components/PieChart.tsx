@@ -46,7 +46,6 @@ export function PieChartComponent({ meal, range }: PieChartComponentProps) {
         setChartData([
           { label: "Eaten", count: data.count, fill: 'hsl(var(--chart-2))' },
           { label: "Not Eaten", count: data.totalStudents - data.count, fill: 'hsl(var(--chart-1))' },
-          //059669  F97A7A "hsl(var(--chart-2))" "hsl(var(--chart-1))"
         ]);
         setData({ eaten: data.count, total: data.totalStudents });
       } catch (err) {
