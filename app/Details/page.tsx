@@ -5,18 +5,27 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { CheckCircle, XCircle, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
+interface MessData  {
+  _id: string;
+  prn: string;
+  name: string;
+  breakfast: boolean;
+  lunch: boolean;
+  dinner: boolean;
+}
+
 function DetailsPageContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const date = searchParams.get("date") || "";
-  const [messData, setMessData] = useState<any[]>([]);
+  const [messData, setMessData] = useState<MessData[]>([]);
   const [loading, setLoading] = useState(true);
 
   const fetchData = async () => {
     if (!date) return;
 
     try {
-      const response = await fetch(`/api/students?date=${date}`);
+      const response = await fetch(`https://gdscbiometric.chirag.codes/?date=${date}`);
       const data = await response.json();
       setMessData(data);
     } catch (error) {
@@ -72,7 +81,7 @@ function DetailsPageContent() {
                       {["breakfast", "lunch", "dinner"].map((meal) => (
                         <td key={meal} className="py-2 sm:py-3 px-4 sm:px-6 border-b border-gray-200">
                           <div className="flex justify-center">
-                            {stud[meal] ? (
+                            {stud[meal as 'lunch' | 'breakfast' | 'dinner'] ? (
                               <CheckCircle className="w-5 sm:w-6 h-5 sm:h-6 text-green-500 hover:text-green-600 transition" />
                             ) : (
                               <XCircle className="w-5 sm:w-6 h-5 sm:h-6 text-red-500 hover:text-red-600 transition" />
