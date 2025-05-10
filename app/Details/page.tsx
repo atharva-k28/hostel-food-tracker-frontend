@@ -7,7 +7,7 @@ import Link from "next/link";
 
 interface MessData  {
   _id: string;
-  prn: string;
+  prn: number;
   name: string;
   breakfast: boolean;
   lunch: boolean;
@@ -27,7 +27,8 @@ function DetailsPageContent() {
     try {
       const response = await fetch(`https://gdscbiometric.chirag.codes/?date=${date}`);
       const data = await response.json();
-      setMessData(data);
+      const filteredData = data.filter((item: MessData) => ![1, 2, 3].includes(item.prn));
+      setMessData(filteredData);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -38,6 +39,8 @@ function DetailsPageContent() {
   useEffect(() => {
     fetchData();
   }, [date]);
+
+  
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-[#f5f5f4] p-4 sm:p-8">
@@ -65,7 +68,7 @@ function DetailsPageContent() {
             <table className="w-full table-auto text-sm text-gray-700 border-collapse rounded-lg overflow-hidden">
               <thead className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white">
                 <tr>
-                  <th className="py-2 sm:py-3 px-4 sm:px-6 text-left border-b border-gray-300">PRN</th>
+                  <th className="py-2 sm:py-3 px-4 sm:px-6 text-left border-b border-gray-300">ID</th>
                   <th className="py-2 sm:py-3 px-4 sm:px-6 text-left border-b border-gray-300">Name</th>
                   <th className="py-2 sm:py-3 px-4 sm:px-6 text-center border-b border-gray-300">Breakfast</th>
                   <th className="py-2 sm:py-3 px-4 sm:px-6 text-center border-b border-gray-300">Lunch</th>
